@@ -179,14 +179,14 @@ const HomeScreen = ({ navigation }) => {
             {/* AI Assistant Banner */}
             <View style={styles.aiBannerContainer}>
               <View style={styles.aiBannerContent}>
-                <Text style={styles.aiBannerTitle}>Asistente IA para Paseadores</Text>
-                <Text style={styles.aiBannerSubtitle}>¿Dudas sobre un comportamiento? Pregunta a nuestra IA.</Text>
+                <Text style={styles.aiBannerTitle}>Encuentra tu paseo ideal</Text>
+                <Text style={styles.aiBannerSubtitle}>Usa la vista interactiva para ver los paseos disponibles cerca de ti.</Text>
                 <TouchableOpacity 
                   style={styles.aiBannerButton}
-                  onPress={() => navigation.navigate('AIChat')}
+                  onPress={() => navigation.navigate('Explorar')}
                 >
-                  <Sparkles color={COLORS.aiPurple} size={16} />
-                  <Text style={styles.aiBannerBtnText}>Habla con la IA</Text>
+                  <MapPin color={COLORS.aiPurple} size={16} />
+                  <Text style={styles.aiBannerBtnText}>Encuentra paseos rápidamente</Text>
                 </TouchableOpacity>
               </View>
               <Image 
