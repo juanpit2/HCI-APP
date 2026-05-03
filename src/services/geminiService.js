@@ -6,8 +6,8 @@
 
 import { DOGS, SHELTERS, OWNERS } from '../constants/mockData';
 
-// ⚠️ REEMPLAZA ESTO CON TU API KEY DE https://aistudio.google.com/apikey
-const GEMINI_API_KEY = 'AIzaSyCK803Uk2q8k1h39GqY9g4KwEO04cEKuOc';
+// Asegúrate de definir esta variable en el archivo .env de tu proyecto
+const GEMINI_API_KEY = process.env.EXPO_PUBLIC_GEMINI_API_KEY;
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
 /**
@@ -19,7 +19,7 @@ const buildDogContext = () => {
     const owner = OWNERS.find(o => o.id === dog.ownerId);
     const address = shelter?.address || owner?.address || 'Cali';
     const source = shelter ? `Refugio: ${shelter.name}` : `Dueño: ${owner?.name}`;
-    
+
     return `- [ID: ${dog.id}] ${dog.name}: Ubicación: ${address}. ${dog.breed}, ${dog.age} años, ${dog.weight}kg, energía ${dog.energyLevel}, tamaño ${dog.size}, temperamento: ${dog.temperament.join(', ')}. Lleva ${dog.daysSinceLastWalk} días sin pasear. ${source}. ${dog.specialNeeds.length > 0 ? 'Necesidades: ' + dog.specialNeeds.join(', ') : ''}`;
   }).join('\n');
 };
@@ -96,7 +96,7 @@ REGLAS:
  */
 export const generateWalkReport = async (dogName, duration, distance, steps) => {
   const prompt = `Genera un breve reporte de paseo (3-4 líneas) para un paseo con ${dogName}. 
-Datos: duración ${Math.floor(duration/60)} minutos, distancia ${distance}km, ${steps} pasos. 
+Datos: duración ${Math.floor(duration / 60)} minutos, distancia ${distance}km, ${steps} pasos. 
 Incluye un consejo para el próximo paseo y una observación sobre el bienestar del perro.`;
 
   return await askGemini(prompt);
@@ -122,7 +122,7 @@ export const suggestWalkRoute = async (location) => {
   Ejemplo: { "routes": [{ "name": "Ruta de los Parques", "desc": "Ideal para sombra", "points": ["Parque del Perro", "Parque Panamericano"] }] }`;
 
   const response = await askGemini(prompt);
-  
+
   if (response.success) {
     try {
       // Intentar extraer el JSON de la respuesta de texto
@@ -134,15 +134,15 @@ export const suggestWalkRoute = async (location) => {
       console.error('Failed to parse AI routes:', e);
     }
   }
-  
+
   // Fallback en caso de error
-  return { 
-    success: true, 
-    data: { 
+  return {
+    success: true,
+    data: {
       routes: [
         { name: "Ruta del Río Cali", desc: "Paseo fresco por el sendero del río", points: ["Gato de Tejada", "Museo La Tertulia"] },
         { name: "Circuito San Antonio", desc: "Caminata histórica con brisa", points: ["Parque del Acueducto", "Capilla San Antonio"] }
-      ] 
-    } 
+      ]
+    }
   };
 };

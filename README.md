@@ -68,7 +68,7 @@ Una vez ejecutes el comando anterior, verás un **Código QR** grande en tu term
 
 Para propósitos de este Workshop y demostración, las credenciales y APIs necesarias ya se encuentran integradas en el código:
 
-* **IA Generativa (Gemini):** La API Key está temporalmente configurada dentro de `src/services/geminiService.js` para que el flujo de chat y recomendación funcione de inmediato tras clonar (Out-of-the-box).
+* **IA Generativa (Gemini):** Por motivos de seguridad, la API Key ya no está en el código. Para probar el chat y la IA, debes crear un archivo llamado `.env` en la raíz del proyecto basándote en el archivo `.env.example`, y agregar tu propia API Key gratuita generada en [Google AI Studio](https://aistudio.google.com/app/apikey).
 * **Google Maps:** Se utilizan los componentes nativos de `react-native-maps` y los servicios de ubicación de Expo (`expo-location`). Al abrir la app en tu celular, te pedirá permisos de Ubicación; **por favor acéptalos** para poder probar el simulador de GPS ("Live Tracking").
 
 ---
